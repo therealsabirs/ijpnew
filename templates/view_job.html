@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details</title>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <style>
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .back-button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <div class="level-right">
+                <form action="{{ url_for('logout') }}" method="POST">
+                    <a href="{{ url_for('logout') }}" class="button is-danger is-small">Logout</a>
+                </form>
+            </div>
+            <!-- Company Logo -->
+            <div class="logo">
+                <img src="/static/images/logo.png" alt="Company Logo" width="400">
+            </div>
+            <h1 class="title">View Job</h1>
+            
+            <div class="box">
+                
+                <h2 class="subtitle">Job Title: {{ job[1] }}</h2>
+
+                <p><strong>Description:</strong></p>
+                <p>{{ job[2].replace('\n', '<br>')|safe }}</p>
+
+                <p><strong>Date:</strong> {{ job[3] }}</p>
+
+                <p><strong>Eligibility Criteria:</strong></p>
+                <p>{{ job[4].replace('.', '<br>')|safe }}</p>
+
+                <p><strong>Number of Positions:</strong> {{ job[5] }}</p>
+
+                <p><strong>Last Date to Apply:</strong> {{ job[6] }}</p>
+
+                <a href="/apply/{{ job[0] }}" class="button is-primary is-small">Apply Now</a>
+            </div>
+
+            <!-- Back Button -->
+            <a href="javascript:history.back()" class="button is-link is-light back-button">Back</a>
+        </div>
+    </section>
+</body>
+</html>

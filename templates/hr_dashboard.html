@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Dashboard</title>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <style>
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .close-button {
+            background: none;
+            border: none;
+            color: #3273dc;
+            font-size: 1.2em;
+            cursor: pointer;
+            padding: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <!-- Company Logo -->
+            <div class="logo">
+                <img src="/static/images/logo.png" alt="Company Logo" width="400">
+            </div>
+            <h1 class="title">HR Dashboard</h1>
+
+            <!-- Search Form -->
+            <form id="search-form" method="GET" action="/hr_dashboard" class="box">
+                <div class="field has-addons">
+                    <div class="control">
+                        <input type="text" id="search_query" name="search_query" class="input" placeholder="Enter job title" value="{{ search_query or '' }}">
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button is-info">Search</button>
+                    </div>
+                    <div class="control">
+                        <!-- Reset Button (Clear Search Query) -->
+                        <button type="button" class="close-button" onclick="clearSearch()">✖</button>
+                    </div>
+                    <!--<a href="{{ url_for('logout') }}" class="button is-danger is-small">Logout</a>-->
+
+                </div>
+            </form>
+            <div class="level-right">
+                <form action="{{ url_for('logout') }}" method="POST">
+                    <a href="{{ url_for('logout') }}" class="button is-danger is-small">Logout</a>
+                </form>
+            </div>
+            <h2 class="subtitle">Manage Jobs</h2>
+            <table class="table is-fullwidth is-striped is-hoverable">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Eligibility Criteria</th>
+                        <th>Number of Positions</th>
+                        <th>Last Date to Apply</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for job in jobs %}
+                    <tr>
+                        <td>{{ job[1] }}</td>
+                        <td>{{ job[2] }}</td>
+                        <td>{{ job[3] }}</td>
+                        <td>{{ job[4] }}</td>
+                        <td>{{ job[5] }}</td>
+                        <td>{{ job[6] }}</td>
+                        <td>{{ job[7] }}</td>
+                        <td>
+                            <a href="/view_applications/{{ job[0] }}" class="button is-link is-small">View Applications</a>
+                            
+                            <!-- Edit Job Button -->
+                            <a href="/edit_job/{{ job[0] }}" class="button is-warning is-small">Edit Job</a>
+                            
+                            {% if job[7] == 'active' %}
+                            <a href="/change_job_status/{{ job[0] }}/closed" class="button is-danger is-small">Close Job</a>
+                            {% else %}
+                            <a href="/change_job_status/{{ job[0] }}/active" class="button is-success is-small">Reopen Job</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <h2 class="subtitle">Add New Job</h2>
+            <form action="/hr_dashboard" method="POST" class="box">
+                <!-- Job Title -->
+                <div class="field">
+                    <label for="title" class="label">Job Title:</label>
+                    <div class="control">
+                        <input type="text" id="title" name="title" class="input" required>
+                    </div>
+                </div>
+                <!-- Job Description -->
+                <div class="field">
+                    <label for="description" class="label">Job Description:</label>
+                    <div class="control">
+                        <textarea id="description" name="description" class="textarea" required></textarea>
+                    </div>
+                </div>
+                <!-- Job Date -->
+                <div class="field">
+                    <label for="date" class="label">Job Date:</label>
+                    <div class="control">
+                        <input type="date" id="date" name="date" class="input" required>
+                    </div>
+                </div>
+                <!-- Eligibility Criteria -->
+                <div class="field">
+                    <label for="eligibility_criteria" class="label">Eligibility Criteria:</label>
+                    <div class="control">
+                        <input type="text" id="eligibility_criteria" name="eligibility_criteria" class="input" required>
+                    </div>
+                </div>
+                <!-- Number of Positions -->
+                <div class="field">
+                    <label for="number_of_positions" class="label">Number of Positions:</label>
+                    <div class="control">
+                        <input type="number" id="number_of_positions" name="number_of_positions" class="input" required>
+                    </div>
+                </div>
+                <!-- Last Date to Apply -->
+                <div class="field">
+                    <label for="last_date_to_apply" class="label">Last Date to Apply:</label>
+                    <div class="control">
+                        <input type="date" id="last_date_to_apply" name="last_date_to_apply" class="input" required>
+                    </div>
+                </div>
+                <!-- Submit Button -->
+                <div class="field">
+                    <div class="control">
+                        <button type="submit" class="button is-primary">Add Job</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- JavaScript to Clear Search Box -->
+    <script>
+        function clearSearch() {
+            document.getElementById('search_query').value = '';  // Clear search input
+            document.getElementById('search-form').submit();    // Submit the form to reset filters
+        }
+    </script>
+</body>
+</html>

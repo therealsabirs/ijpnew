@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard</title>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <style>
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <!-- Company Logo -->
+            <div class="logo">
+                <img src="/static/images/logo.png" alt="Company Logo" width="400">
+                
+            </div>
+            <div class="level-right">
+                <form action="{{ url_for('logout') }}" method="POST">
+                    <a href="{{ url_for('logout') }}" class="button is-danger is-small">Logout</a>
+                </form>
+            </div>
+            <h1 class="title">Employee Dashboard</h1>
+
+            <h2 class="subtitle">Available Jobs</h2>
+
+            <table class="table is-fullwidth is-striped is-hoverable">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Eligibility Criteria</th>
+                        <th>Last Date to Apply</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for job in jobs %}
+                    <tr>
+                        <td>{{ job[1] }}</td>
+                        <td>{{ job[4].replace('\n', '<br>')|safe }}</td>
+                        <td>{{ job[6] }}</td>
+                        <td>
+                            <a href="/view_job/{{ job[0] }}" class="button is-primary is-small">View Job</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+</html>

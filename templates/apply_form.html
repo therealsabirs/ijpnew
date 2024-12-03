@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Job</title>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <style>
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <!-- Company Logo -->
+            <div class="logo">
+                <img src="/static/images/logo.png" alt="Company Logo" width="400">
+            </div>
+            <h1 class="title">Apply for Job</h1>
+
+            <form action="/apply/{{ job_id }}" method="POST" enctype="multipart/form-data" class="box">
+
+                <!-- Employee Code -->
+                <div class="field">
+                    <label for="employee_code" class="label">Employee Code:</label>
+                    <div class="control">
+                        <input type="text" id="employee_code" name="employee_code" class="input" required>
+                    </div>
+                </div>
+
+                <!-- Name -->
+                <div class="field">
+                    <label for="name" class="label">Name:</label>
+                    <div class="control">
+                        <input type="text" id="name" name="name" class="input" required>
+                    </div>
+                </div>
+
+                <!-- Role Type -->
+                <div class="field">
+                    <label for="role_type" class="label">Role Type:</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="role_type" name="role_type" required>
+                                <option value="Contractor">Contractor</option>
+                                <option value="Permanent">Permanent</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Designation -->
+                <div class="field">
+                    <label for="designation" class="label">Designation:</label>
+                    <div class="control">
+                        <input type="text" id="designation" name="designation" class="input" required>
+                    </div>
+                </div>
+
+                <!-- Department Name -->
+                <div class="field">
+                    <label for="department_name" class="label">Department Name:</label>
+                    <div class="control">
+                        <input type="text" id="department_name" name="department_name" class="input" required>
+                    </div>
+                </div>
+
+                <!-- Supervisor Name -->
+                <div class="field">
+                    <label for="supervisor_name" class="label">Supervisor Name:</label>
+                    <div class="control">
+                        <input type="text" id="supervisor_name" name="supervisor_name" class="input" required>
+                    </div>
+                </div>
+
+                <!-- Date of Joining -->
+                <div class="field">
+                    <label for="date_of_joining" class="label">Date of Joining:</label>
+                    <div class="control">
+                        <input type="date" id="date_of_joining" name="date_of_joining" class="input" required>
+                    </div>
+                </div>
+
+                <!-- Resume Upload -->
+                <div class="field">
+                    <label for="resume" class="label">Resume (PDF):</label>
+                    <div class="control">
+                        <input type="file" id="resume" name="resume" class="input" accept=".pdf" required>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="field">
+                    <div class="control">
+                        <button type="submit" class="button is-primary">Submit Application</button>
+                    </div>
+                </div>
+
+            </form>
+            <!-- Back Button -->
+            <a href="javascript:history.back()" class="button is-link is-light back-button">Back</a>
+        </div>
+    </section>
+</body>
+</html>

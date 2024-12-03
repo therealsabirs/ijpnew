@@ -1,0 +1,6 @@
+Flask==2.3.2
+psycopg2==2.9.6
+Werkzeug==2.3.6
+Flask-Mail==0.9.1
+Flask-SQLAlchemy==2.5.1
+gunicorn==20.1.0  # For deployment with Gunicorn

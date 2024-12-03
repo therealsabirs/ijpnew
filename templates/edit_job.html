@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Job</title>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <style>
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        /* Back Button Styling */
+        .back-button {
+            background-color: #6c757d; /* Grey back button */
+            color: #fff;
+            margin-top: 20px;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .back-button:hover {
+            background-color: #5a6268; /* Darker grey on hover */
+        }
+    </style>
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <!-- Company Logo -->
+            <div class="logo">
+                <img src="/static/images/logo.png" alt="Company Logo" width="400">
+            </div>
+            <h1 class="title">Edit Job</h1>
+
+            <form action="/edit_job/{{ job[0] }}" method="POST" class="box">
+                <!-- Job Title -->
+                <div class="field">
+                    <label for="title" class="label">Job Title:</label>
+                    <div class="control">
+                        <input type="text" id="title" name="title" class="input" value="{{ job[1] }}" required>
+                    </div>
+                </div>
+
+                <!-- Job Description -->
+                <div class="field">
+                    <label for="description" class="label">Job Description:</label>
+                    <div class="control">
+                        <textarea id="description" name="description" class="textarea" required>{{ job[2] }}</textarea>
+                    </div>
+                </div>
+
+                <!-- Job Date -->
+                <div class="field">
+                    <label for="date" class="label">Job Date:</label>
+                    <div class="control">
+                        <input type="date" id="date" name="date" class="input" value="{{ job[3] }}" required>
+                    </div>
+                </div>
+
+                <!-- Eligibility Criteria -->
+                <div class="field">
+                    <label for="eligibility_criteria" class="label">Eligibility Criteria:</label>
+                    <div class="control">
+                        <input type="text" id="eligibility_criteria" name="eligibility_criteria" class="input" value="{{ job[4] }}" required>
+                    </div>
+                </div>
+
+                <!-- Number of Positions -->
+                <div class="field">
+                    <label for="number_of_positions" class="label">Number of Positions:</label>
+                    <div class="control">
+                        <input type="number" id="number_of_positions" name="number_of_positions" class="input" value="{{ job[5] }}" required>
+                    </div>
+                </div>
+
+                <!-- Last Date to Apply -->
+                <div class="field">
+                    <label for="last_date_to_apply" class="label">Last Date to Apply:</label>
+                    <div class="control">
+                        <input type="date" id="last_date_to_apply" name="last_date_to_apply" class="input" value="{{ job[6] }}" required>
+                    </div>
+                </div>
+
+                <!-- Job Status -->
+                <div class="field">
+                    <label for="status" class="label">Job Status:</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="status" name="status">
+                                <option value="active" {% if job[7] == 'active' %}selected{% endif %}>Active</option>
+                                <option value="closed" {% if job[7] == 'closed' %}selected{% endif %}>Closed</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="field">
+                    <div class="control">
+                        <button type="submit" class="button is-primary">Update Job</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Back Button -->
+            <a href="javascript:history.back()" class="back-button">Back</a>
+        </div>
+    </section>
+</body>
+</html>
